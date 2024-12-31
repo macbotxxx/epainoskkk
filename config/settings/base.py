@@ -59,6 +59,9 @@ DATABASES = {
         'PASSWORD': 'M080341i@',
         'HOST': 'localhost',
         'PORT': '',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        },
     }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
