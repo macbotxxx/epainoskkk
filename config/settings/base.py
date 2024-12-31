@@ -53,12 +53,12 @@ DATABASES = {
     #     default="postgres:///epainos",
     # ),
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'epainos',
         'USER': 'epainosuser',
         'PASSWORD': 'M080341i@',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '',
     }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
