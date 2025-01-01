@@ -9,12 +9,15 @@ import environ
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # epainos/
 APPS_DIR = BASE_DIR / "epainos"
-env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(str(BASE_DIR / ".env"))
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env()  # Reads the .env file
+
+# READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
+# if READ_DOT_ENV_FILE:
+#     # OS environment variables take precedence over variables from .env
+#     env.read_env(str(BASE_DIR / ".env"))
 
 # GENERAL
 # ------------------------------------------------------------------------------

@@ -5,6 +5,12 @@ from .base import INSTALLED_APPS
 from .base import REDIS_URL
 from .base import env
 
+
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env()  # Reads the .env file
+
+
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
@@ -191,3 +197,5 @@ LOGGING = {
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+
