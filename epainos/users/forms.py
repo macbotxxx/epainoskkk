@@ -111,7 +111,7 @@ class ContestantImageForm(forms.ModelForm):
 
 class ContestantProfileForm(forms.ModelForm):
     contestant_image = MultipleFileField()
-    contestant_videos = MultipleURLField()
+    # contestant_videos = MultipleURLField()
 
     class Meta:
         model = Contestant
@@ -140,9 +140,9 @@ class ContestantEditProfileForm(forms.ModelForm):
             'stage_name', 'contestant_inspiration',
             'contestant_videos'
         ]
-        widgets = {
-            'contestant_videos': forms.Textarea(attrs={'rows': 3}),
-        }
+        # widgets = {
+        #     'contestant_videos': forms.Textarea(attrs={'rows': 3}),
+        # }
 
     contestant_images = MultipleFileField(required=False)
 
@@ -150,7 +150,9 @@ class ContestantEditProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance and self.instance.pk:
-            self.fields['contestant_images'].initial = self.instance.contestant_images.all()
+            self.fields['contestant_images'].initial = [
+                img.image.url for img in self.instance.contestant_images.all()
+            ]
     
     def save(self, commit=True):
         instance = super().save(commit=False)

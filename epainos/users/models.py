@@ -98,17 +98,22 @@ class Contestant(BaseModel):
 
     contestant_images = models.ManyToManyField(
         'ContestantImage',
+        related_name='contestants'
     )
 
-    contestant_videos = models.JSONField(default=list)
+    contestant_videos = models.JSONField(default="['https://www.youtube.com/watch?v=6v2L2UGZJAM']")
 
     def save(self, *args, **kwargs) -> None:
-        self.name = self.first_name + " " + self.last_name
-        while not self.contestant_id:
+        self.name = f"{self.first_name} {self.last_name}"
+        max_attempts = 10
+        attempts = 0
+        while not self.contestant_id and attempts < max_attempts:
             contestant_id = generate_random_10_digits()
-            object_with_similar_ref = Contestant.objects.filter(contestant_id=contestant_id)
-            if not object_with_similar_ref:
+            if not Contestant.objects.filter(contestant_id=contestant_id).exists():
                 self.contestant_id = contestant_id
+            attempts += 1
+        if not self.contestant_id:
+            raise ValueError("Could not generate a unique contestant ID after multiple attempts.")
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -126,7 +131,7 @@ class ContestantImage(BaseModel):
     image = models.ImageField(
         verbose_name=_("Contestant Images"),
         null=True,
-        upload_to='images/',
+        upload_to='contestant_images/',
         help_text=_("this hold the contestant image")
         )
 

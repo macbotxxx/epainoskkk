@@ -172,27 +172,33 @@ class ContestantUpload(LoginRequiredMixin ,TemplateView):
         context["form"] = ContestantProfileForm()
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = ContestantProfileForm(request.POST, request.FILES)
-        files = request.FILES.getlist('contestant_image')
-        if form.is_valid():
-            contestant_qs = Contestant.objects.create(
-                first_name=form.cleaned_data.get("first_name"),
-                last_name=form.cleaned_data.get("last_name"),
-                stage_name=form.cleaned_data.get("stage_name"),
-                contestant_inspiration=form.cleaned_data.get("contestant_inspiration"),
-                contestant_videos=form.cleaned_data.get("contestant_videos")
-            )
-            for f in files:
-                image=ContestantImage.objects.create(image=f)
-                contestant_qs.contestant_images.add(image)
+    # def post(self, request, *args, **kwargs):
+    #     form = ContestantProfileForm(request.POST, request.FILES)
+    #     files = request.FILES.getlist('contestant_image')
+    #     if form.is_valid():
+    #         contestant_qs = Contestant.objects.create(
+    #             first_name=form.cleaned_data.get("first_name"),
+    #             last_name=form.cleaned_data.get("last_name"),
+    #             stage_name=form.cleaned_data.get("stage_name"),
+    #             contestant_inspiration=form.cleaned_data.get("contestant_inspiration"),
+    #             contestant_videos=form.cleaned_data.get("contestant_videos")
+    #         )
+    #         for f in files:
+    #             image=ContestantImage.objects.create(image=f)
+    #             contestant_qs.contestant_images.add(image)
             
-            contestant_qs.save()
-            return redirect('users:contestant_list')
-        else:
-            form = ContestantProfileForm()
+    #         contestant_qs.save()
+    #         return redirect('users:contestant_list')
+    #     else:
+    #         form = ContestantProfileForm()
 
-        return self.get(request, *args, **kwargs)
+    #     return self.get(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        form = ContestantEditProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('users:contestant_list')
+        return render(request, self.template_name, {'form': form, 'contestant_qs': Contestant.objects.all()})
 
 
 contestant_upload = ContestantUpload.as_view()
