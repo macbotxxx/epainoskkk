@@ -54,25 +54,25 @@ DATABASES = {
     #     "DATABASE_URL",
     #     default="postgres:///epainos",
     # ),
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'epainos',
-    #     'USER': 'epainosuser',
-    #     'PASSWORD': 'M080341i@',
-    #     'HOST': 'localhost',
-    #     'PORT': '',
-    #     'OPTIONS': {
-    #         'options': '-c search_path=public'
-    #     },
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "epainos",
-        'USER': "root",
-        'PASSWORD': "secret",
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'epainos',
+        'USER': 'epainosuser',
+        'PASSWORD': 'M080341i@',
         'HOST': 'localhost',
-        'PORT': 5433,
+        'PORT': '',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        },
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': "epainos",
+    #     'USER': "root",
+    #     'PASSWORD': "secret",
+    #     'HOST': 'localhost',
+    #     'PORT': 5433,
+    # }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
