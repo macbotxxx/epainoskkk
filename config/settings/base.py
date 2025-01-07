@@ -54,25 +54,25 @@ DATABASES = {
     #     "DATABASE_URL",
     #     default="postgres:///epainos",
     # ),
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'epainos',
-        'USER': 'epainosuser',
-        'PASSWORD': 'M080341i@',
-        'HOST': 'localhost',
-        'PORT': '',
-        'OPTIONS': {
-            'options': '-c search_path=public'
-        },
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': "epainos",
-    #     'USER': "root",
-    #     'PASSWORD': "secret",
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'epainos',
+    #     'USER': 'epainosuser',
+    #     'PASSWORD': 'M080341i@',
     #     'HOST': 'localhost',
-    #     'PORT': 5433,
+    #     'PORT': '',
+    #     'OPTIONS': {
+    #         'options': '-c search_path=public'
+    #     },
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "epainos",
+        'USER': "root",
+        'PASSWORD': "secret",
+        'HOST': 'localhost',
+        'PORT': 5433,
+    }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
@@ -191,8 +191,8 @@ STATICFILES_FINDERS = [
 # MEDIA_URL = "/media/"
 
 # Maximum file upload size (in bytes)
-DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 20MB
-FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 20MB
+# DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 20MB
+# FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 20MB
 
 # TEMPLATES
 # ------------------------------------------------------------------------------
@@ -384,3 +384,4 @@ STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
 # DEFAULT_FILE_STORAGE = "dev_test1.utils.storages.MediaRootS3Boto3Storage"
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+
